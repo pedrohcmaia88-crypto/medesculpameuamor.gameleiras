@@ -1,0 +1,1134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dias de frio, e amor em familia.</title>
+  <style>
+    :root {
+      --paper: #fffafb;
+      --paper-strong: #ffffff;
+      --ink: #2b1518;
+      --muted: #775d62;
+      --rose: #ff6f91;
+      --rose-soft: #ffd6df;
+      --red: #c92a3a;
+      --wine: #6e1f2b;
+      --line: rgba(110, 31, 43, 0.16);
+      --shadow: 0 24px 70px rgba(110, 31, 43, 0.13);
+      --radius: 8px;
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        linear-gradient(115deg, rgba(255, 214, 223, 0.34), transparent 34%),
+        linear-gradient(245deg, rgba(201, 42, 58, 0.12), transparent 32%),
+        var(--paper);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0 9%, rgba(255, 111, 145, 0.08) 9.1% 9.2%, transparent 9.3% 100%),
+        repeating-linear-gradient(0deg, rgba(110, 31, 43, 0.035) 0 1px, transparent 1px 72px);
+      mix-blend-mode: multiply;
+      z-index: 0;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .deck {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      scroll-snap-type: y mandatory;
+    }
+
+    .slide {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      padding: clamp(24px, 4vw, 56px);
+      scroll-snap-align: start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide::before,
+    .slide::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      border: 1px solid rgba(255, 111, 145, 0.14);
+      transform: rotate(-10deg);
+    }
+
+    .slide::before {
+      width: 360px;
+      height: 360px;
+      right: -170px;
+      top: -130px;
+    }
+
+    .slide::after {
+      width: 240px;
+      height: 240px;
+      left: -130px;
+      bottom: -110px;
+      border-color: rgba(201, 42, 58, 0.11);
+    }
+
+    #slide-13,
+    #slide-14 {
+      align-items: start;
+    }
+
+    .frame {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero {
+      min-height: calc(100vh - clamp(48px, 8vw, 112px));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: clamp(28px, 6vw, 76px);
+      align-items: center;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: clamp(32px, 6vw, 72px) 0;
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.76rem;
+      color: var(--red);
+      font-weight: 750;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: 0;
+      color: var(--ink);
+      overflow-wrap: break-word;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 7.2vw, 6.7rem);
+      line-height: 0.92;
+      max-width: 860px;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 5.5vw, 5rem);
+      line-height: 0.98;
+      max-width: 890px;
+    }
+
+    h3 {
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.42vw, 1.22rem);
+      line-height: 1.65;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin-top: 28px;
+      color: #51383d;
+      font-size: clamp(1.12rem, 1.8vw, 1.52rem);
+      line-height: 1.58;
+    }
+
+    .signature {
+      margin-top: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--wine);
+      font-weight: 700;
+    }
+
+    .signature::before {
+      content: "";
+      width: 56px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .heart-mark {
+      width: min(310px, 70vw);
+      aspect-ratio: 1;
+      margin-inline: auto;
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+
+    .heart-mark::before {
+      content: "♡";
+      font-family: var(--serif);
+      font-size: clamp(12rem, 24vw, 19rem);
+      line-height: 1;
+      color: rgba(201, 42, 58, 0.14);
+      text-shadow: 0 0 50px rgba(255, 111, 145, 0.42);
+    }
+
+    .heart-mark span {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 122px;
+      height: 122px;
+      border: 1px solid rgba(201, 42, 58, 0.18);
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: var(--shadow);
+      color: var(--red);
+      font-family: var(--serif);
+      font-size: 4rem;
+      transform: rotate(-8deg);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(310px, 0.65fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+    }
+
+    .copy-stack {
+      display: grid;
+      gap: 20px;
+    }
+
+    .quote {
+      padding-left: 24px;
+      border-left: 2px solid var(--rose);
+      font-family: var(--serif);
+      color: var(--wine);
+      font-size: clamp(1.45rem, 3.5vw, 3rem);
+      line-height: 1.15;
+      max-width: 830px;
+    }
+
+    .soft-panel {
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 38px;
+    }
+
+    .time-card {
+      min-height: 158px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      align-content: space-between;
+      gap: 18px;
+    }
+
+    .time-card small,
+    .label {
+      display: block;
+      color: var(--red);
+      font-size: 0.76rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 780;
+    }
+
+    .time-card strong {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      line-height: 1.08;
+    }
+
+    .day-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: clamp(28px, 5vw, 54px);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+    }
+
+    .day-title p {
+      max-width: 390px;
+      text-align: right;
+    }
+
+    .moment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .moment {
+      min-height: 236px;
+      padding: clamp(22px, 3vw, 32px);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      align-content: space-between;
+      gap: 24px;
+    }
+
+    .moment.full {
+      grid-column: 1 / -1;
+      min-height: 210px;
+    }
+
+    .moment p {
+      max-width: 760px;
+    }
+
+    .restaurant-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(330px, 0.62fr);
+      gap: clamp(24px, 5vw, 58px);
+      align-items: stretch;
+    }
+
+    .photo-slot {
+      min-height: 470px;
+      border: 1px solid rgba(201, 42, 58, 0.18);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255, 214, 223, 0.64), rgba(255, 255, 255, 0.2)),
+        linear-gradient(315deg, rgba(201, 42, 58, 0.13), transparent 58%),
+        #ffffff;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-slot::before {
+      content: "";
+      position: absolute;
+      width: 170%;
+      height: 120px;
+      left: -35%;
+      top: 38%;
+      background: rgba(255, 255, 255, 0.48);
+      transform: rotate(-18deg);
+    }
+
+    .photo-slot div {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+      text-align: center;
+      color: var(--wine);
+    }
+
+    .photo-slot span {
+      font-family: var(--serif);
+      font-size: 5.8rem;
+      line-height: 0.9;
+      color: rgba(201, 42, 58, 0.28);
+    }
+
+    .photo-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .photo-slot.has-photo div {
+      display: none;
+    }
+
+    .insta {
+      margin-top: 26px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--wine);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.58);
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+    }
+
+    .insta svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: #51383d;
+      line-height: 1.45;
+      font-size: clamp(1rem, 1.25vw, 1.12rem);
+    }
+
+    .checklist li::before {
+      content: "♡";
+      color: var(--red);
+      flex: 0 0 auto;
+      line-height: 1.2;
+    }
+
+    .shopping-section {
+      margin-top: 30px;
+    }
+
+    .shopping-section + .shopping-section {
+      margin-top: 18px;
+    }
+
+    .shopping-heading {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--red);
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .shopping-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .shopping-card {
+      min-height: 178px;
+      padding: clamp(18px, 2.3vw, 26px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow);
+    }
+
+    .shopping-card h3 {
+      margin-bottom: 16px;
+      color: var(--red);
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .shopping-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #51383d;
+      font-size: clamp(1rem, 1.35vw, 1.15rem);
+      line-height: 1.35;
+    }
+
+    .shopping-card li::before {
+      content: "♡ ";
+      color: var(--red);
+    }
+
+    .final-photo {
+      min-height: 540px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(201, 42, 58, 0.18);
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .final-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .apology-note {
+      display: grid;
+      gap: 18px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .center h2,
+    .center .lead,
+    .center .quote {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .final-line {
+      margin-top: 42px;
+      font-family: var(--serif);
+      color: var(--wine);
+      font-size: clamp(1.65rem, 3.2vw, 3rem);
+      line-height: 1.18;
+    }
+
+    .nav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      display: grid;
+      gap: 9px;
+    }
+
+    .nav a {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(110, 31, 43, 0.34);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 4px 18px rgba(110, 31, 43, 0.14);
+    }
+
+    .controls {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 12;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 14px 36px rgba(110, 31, 43, 0.12);
+    }
+
+    .control-btn {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--wine);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 214, 223, 0.7);
+    }
+
+    .control-btn svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .progress {
+      color: var(--muted);
+      min-width: 54px;
+      text-align: center;
+      font-size: 0.86rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 1120px) {
+      .nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .slide {
+        padding: 26px 20px 86px;
+      }
+
+      .hero,
+      .two-col,
+      .restaurant-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 20px;
+      }
+
+      .heart-mark {
+        width: min(220px, 70vw);
+      }
+
+      .heart-mark::before {
+        font-size: 11rem;
+      }
+
+      .timeline,
+      .moment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .shopping-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .shopping-card {
+        min-height: auto;
+      }
+
+      .day-title {
+        display: grid;
+        align-items: start;
+      }
+
+      .day-title p {
+        text-align: left;
+      }
+
+      .photo-slot {
+        min-height: 290px;
+      }
+
+      .final-photo {
+        min-height: 390px;
+      }
+
+      .controls {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      body::before,
+      .nav,
+      .controls {
+        display: none;
+      }
+
+      .deck {
+        display: block;
+      }
+
+      .slide {
+        min-height: 100vh;
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Navegação da apresentação"></nav>
+
+  <main class="deck" id="deck">
+    <section class="slide" id="slide-1">
+      <div class="frame hero">
+        <div>
+          <p class="kicker">Roteiro Oficial</p>
+          <h1>Dias de frio, e amor em familia.</h1>
+          <p class="lead">Uma viagem para a gente respirar, ficar perto de novo e eu te pedir desculpas com presença, carinho e calma.</p>
+          <p class="signature">Para nós dois</p>
+        </div>
+        <div class="heart-mark" aria-hidden="true"><span>♡</span></div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="frame two-col">
+        <div class="copy-stack">
+          <p class="kicker">Antes da serra</p>
+          <h2>Antes de qualquer vista bonita, eu preciso começar por você.</h2>
+          <p class="lead">Eu sei que falhei em momentos em que eu deveria ter cuidado melhor da gente. E esse roteiro começa com um pedido sincero de desculpas.</p>
+        </div>
+        <div class="soft-panel">
+          <p>Não pensei nessa viagem só como um passeio. Pensei como um jeito de dizer: eu quero estar aqui, quero te ouvir, quero cuidar melhor de nós dois e quero viver dias leves do seu lado.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="frame">
+        <p class="kicker">O que faz sentido na gente</p>
+        <h2>A gente é diferente, mas é justamente aí que mora tanta coisa bonita.</h2>
+        <div class="timeline">
+          <div class="time-card">
+            <small>01</small>
+            <strong>Parceria</strong>
+          </div>
+          <div class="time-card">
+            <small>02</small>
+            <strong>Presença</strong>
+          </div>
+          <div class="time-card">
+            <small>03</small>
+            <strong>Amor</strong>
+          </div>
+        </div>
+        <p class="lead">Eu demorei para me movimentar como deveria. Não quero transformar isso em desculpa.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="frame center">
+        <p class="kicker">Convite oficial</p>
+        <p class="quote">“Essa viagem não é pra apagar nada. É pra eu te mostrar, com calma, que ainda quero escolher você e construir melhor a nossa história.”</p>
+        <p class="final-line">Você aceita viver esses dias comigo?</p>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="frame restaurant-layout">
+        <div class="copy-stack">
+          <p class="kicker">Almoço — Pousada Pedra Grande</p>
+          <h2>Um almoço bonito para começar sem pressa.</h2>
+          <p class="lead">Quero sentar com você, olhar a vista e sentir que a gente finalmente saiu do barulho da rotina.</p>
+          <p>Mais do que comer, é começar a viagem do jeito que eu quero viver esses dias: perto de você, leve, presente e sem pressa para nada.</p>
+          <a class="insta" href="https://www.instagram.com/pousadapedragrande/" target="_blank" rel="noopener" aria-label="Abrir Instagram da Pousada Pedra Grande">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+            @pousadapedragrande
+          </a>
+        </div>
+        <div class="photo-slot has-photo">
+          <img src="assets/pousada-pedra-grande.png" alt="Vista do restaurante da Pousada Pedra Grande em Monte das Gameleiras">
+          <div>
+            <span>♡</span>
+            <strong>Foto do local</strong>
+            <p>Substituir este espaço por uma foto da Pousada Pedra Grande.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="frame">
+        <div class="day-title">
+          <div>
+            <p class="kicker">Dia 01 — Domingo</p>
+            <h2>Chegada com calma</h2>
+          </div>
+          <p>Check-in às 14h. A ideia é chegar, respirar e deixar o mundo um pouco do lado de fora.</p>
+        </div>
+        <div class="moment-grid">
+          <article class="moment">
+            <span class="label">Check-in — 14h</span>
+            <h3>Monte das Gameleiras</h3>
+            <p>Eu, você, Theodoro, Frederico, friozinho e paz. A chegada já começa com a gente escolhendo descanso.</p>
+          </article>
+          <article class="moment">
+            <span class="label">Chalé</span>
+            <h3>Descansar de verdade</h3>
+            <p>Sem obrigação de sair correndo para lugar nenhum. Só aproveitar o chalé, ficar agarradinho e curtir nossos meninos por perto.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-7">
+      <div class="frame restaurant-layout">
+        <div class="copy-stack">
+          <p class="kicker">Noite — Pedra do Sapo</p>
+          <h2>Nosso primeiro jantar na serra.</h2>
+          <a class="insta" href="https://www.instagram.com/pedradosapo/" target="_blank" rel="noopener" aria-label="Abrir Instagram do Pedra do Sapo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+            @pedradosapo
+          </a>
+        </div>
+        <div class="photo-slot has-photo">
+          <img src="assets/pedra-do-sapo.png" alt="Jantar no restaurante Pedra do Sapo em Monte das Gameleiras">
+          <div>
+            <span>♡</span>
+            <strong>Foto do local</strong>
+            <p>Substituir este espaço por uma foto do Pedra do Sapo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-8">
+      <div class="frame">
+        <div class="day-title">
+          <div>
+            <p class="kicker">Dia 02 — Segunda</p>
+            <h2>Manhã no nosso tempo</h2>
+          </div>
+          <p>Café sem pressa, friozinho e a chance de acordar sem cobrança nenhuma.</p>
+        </div>
+        <div class="moment-grid">
+          <article class="moment">
+            <span class="label">Manhã</span>
+            <h3>Café, preguiça e carinho</h3>
+            <ul class="checklist">
+              <li>Café</li>
+              <li>Preguiça</li>
+              <li>Friozinho</li>
+              <li>Fotos bonitas quando der vontade</li>
+            </ul>
+          </article>
+          <article class="moment">
+            <span class="label">Nosso ritmo</span>
+            <h3>Deixar a manhã acontecer</h3>
+            <p>Quero uma manhã leve, daquelas em que a gente não precisa performar nada. Só estar junto já basta.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9">
+      <div class="frame two-col">
+        <div class="copy-stack">
+          <p class="kicker">Almoço — Segunda</p>
+          <h2>Macarrão ao molho branco sem lactose + filé.</h2>
+        </div>
+        <div class="soft-panel">
+          <span class="label">Lista do almoço</span>
+          <ul class="checklist">
+            <li>Macarrão: fettuccine, tagliatelle ou penne</li>
+            <li>Creme de leite sem lactose</li>
+            <li>Leite sem lactose</li>
+            <li>Alho</li>
+            <li>Manteiga sem lactose</li>
+            <li>Filé mignon ou alcatra</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10">
+      <div class="frame restaurant-layout">
+        <div class="copy-stack">
+          <p class="kicker">Tarde — 15h</p>
+          <h2>Um pouco de aventura para virar lembrança.</h2>
+          <p class="lead">Na ida você pilota, porque eu confio plenamente em você. Kkkkk</p>
+          <a class="insta" href="https://www.instagram.com/p/DWzAAQWDe0V/" target="_blank" rel="noopener" aria-label="Abrir publicação do passeio de quadriciclo no Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+            passeio de quadriciclo
+          </a>
+          <div class="soft-panel">
+            <ul class="checklist">
+              <li>Vista bonita e estrada de terra</li>
+              <li>Fotos espontâneas</li>
+              <li>Eu tentando parecer confiante pilotando</li>
+              <li>Você ficando ainda mais linda no modo aventura</li>
+            </ul>
+          </div>
+        </div>
+        <div class="photo-slot has-photo">
+          <img src="assets/quadriciclo-dia-02.png" alt="Passeio de quadriciclo ao pôr do sol em Monte das Gameleiras">
+          <div>
+            <span>♡</span>
+            <strong>Foto do passeio</strong>
+            <p>Passeio de quadriciclo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-11">
+      <div class="frame restaurant-layout">
+        <div class="copy-stack">
+          <p class="kicker">Noite — Bendito’s Espaço Gastronômico</p>
+          <h2>Um jantar para fechar com carinho.</h2>
+          <p class="lead">Quero terminar essa noite olhando para você com a sensação de que vale a pena cuidar melhor da gente.</p>
+          <p>Boa comida, conversa leve e aquele pensamento perigoso de querer ficar mais um dia só para não ir embora ainda.</p>
+          <a class="insta" href="https://www.instagram.com/benditosespacogastronomico/" target="_blank" rel="noopener" aria-label="Abrir Instagram do Bendito’s Espaço Gastronômico">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+            @benditosespacogastronomico
+          </a>
+        </div>
+        <div class="photo-slot has-photo">
+          <img src="assets/benditos-dia-02.png" alt="Entrada do Bendito’s Espaço Gastronômico">
+          <div>
+            <span>♡</span>
+            <strong>Foto do local</strong>
+            <p>Substituir este espaço por uma foto do Bendito’s Espaço Gastronômico.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-12">
+      <div class="frame">
+        <div class="day-title">
+          <div>
+            <p class="kicker">Dia 03 — Terça</p>
+            <h2>Última manhã na serra</h2>
+          </div>
+          <p>Café + checkout até 12h. Aproveitar o friozinho até o último minuto.</p>
+        </div>
+        <div class="moment-grid">
+          <article class="moment">
+            <span class="label">Manhã</span>
+            <h3>Ir embora devagar</h3>
+            <p>Talvez mais um café. Talvez mais algumas fotos. Talvez aquela vontade de esticar só mais um pouquinho.</p>
+          </article>
+          <article class="moment">
+            <span class="label">Fechamento</span>
+            <h3>Voltar com a gente mais perto</h3>
+            <p>Não para fingir que nada aconteceu, mas para voltar com mais carinho, mais cuidado e mais vontade de fazer dar certo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-13">
+      <div class="frame">
+        <div class="day-title">
+          <div>
+            <p class="kicker">Feira da viagem</p>
+            <h2>O que a gente leva para o chalé</h2>
+          </div>
+          <p>Uma listinha prática para deixar tudo fácil, gostoso e sem correria.</p>
+        </div>
+        <div class="shopping-section" aria-label="Lista de feira da viagem">
+          <div class="shopping-grid">
+            <article class="shopping-card">
+              <h3>Cozinha</h3>
+              <ul>
+                <li>Macarrão</li>
+                <li>Creme de leite sem lactose</li>
+                <li>Alho</li>
+                <li>Azeite / manteiga</li>
+                <li>Filé</li>
+              </ul>
+            </article>
+            <article class="shopping-card">
+              <h3>Lanches</h3>
+              <ul>
+                <li>Frutas</li>
+                <li>Castanhas</li>
+                <li>Torradinhas</li>
+                <li>Frios leves</li>
+                <li>Chocolate</li>
+              </ul>
+            </article>
+            <article class="shopping-card">
+              <h3>Bebidas</h3>
+              <ul>
+                <li>Água</li>
+                <li>Coca</li>
+                <li>Suco</li>
+                <li>+4 vinhos</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-14">
+      <div class="frame">
+        <div class="day-title">
+          <div>
+            <p class="kicker">Feira da viagem</p>
+            <h2>Café da manhã no chalé</h2>
+          </div>
+          <p>Coisas simples para começar o dia com calma, sem precisar sair correndo.</p>
+        </div>
+        <div class="shopping-section" aria-label="Lista de café da manhã">
+          <div class="shopping-grid">
+            <article class="shopping-card">
+              <h3>Básicos</h3>
+              <ul>
+                <li>Ovos</li>
+                <li>Pão de forma</li>
+                <li>Goma de tapioca</li>
+              </ul>
+            </article>
+            <article class="shopping-card">
+              <h3>Frios</h3>
+              <ul>
+                <li>Presunto</li>
+                <li>Queijo sem lactose ou queijo leve</li>
+              </ul>
+            </article>
+            <article class="shopping-card">
+              <h3>Complementos</h3>
+              <ul>
+                <li>Manteiga sem lactose</li>
+                <li>Requeijão sem lactose</li>
+                <li>Café</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-15">
+      <div class="frame two-col">
+        <div class="final-photo">
+          <img src="assets/nossa-foto-final.jpg" alt="Nossa foto juntos">
+        </div>
+        <div class="apology-note">
+          <p class="kicker">Fim do roteiro</p>
+          <h2>Me desculpa.</h2>
+          <p class="lead">Desculpa pelas vezes em que eu não cuidei da gente como você merecia. Desculpa por ter demorado a me movimentar e por nem sempre ter sido o lugar de paz que eu queria ser para você.</p>
+          <p>Eu não quero que essa viagem seja só um passeio bonito.</p>
+          <p class="final-line">Não é sobre o lugar. É sobre com quem a viagem acontece.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="controls" aria-label="Controles da apresentação">
+    <button class="control-btn" type="button" data-action="prev" aria-label="Slide anterior">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+    </button>
+    <span class="progress" aria-live="polite">1/15</span>
+    <button class="control-btn" type="button" data-action="next" aria-label="Próximo slide">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </button>
+    <button class="control-btn" type="button" data-action="fullscreen" aria-label="Tela cheia">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M16 3h3a2 2 0 0 1 2 2v3"></path><path d="M8 21H5a2 2 0 0 1-2-2v-3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path></svg>
+    </button>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const nav = document.querySelector(".nav");
+    const progress = document.querySelector(".progress");
+    let activeIndex = 0;
+
+    slides.forEach((slide, index) => {
+      const dot = document.createElement("a");
+      dot.href = `#${slide.id}`;
+      dot.setAttribute("aria-label", `Ir para o slide ${index + 1}`);
+      nav.appendChild(dot);
+    });
+
+    const dots = Array.from(nav.querySelectorAll("a"));
+
+    function goTo(index) {
+      const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
+      slides[nextIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function setActive(index) {
+      activeIndex = index;
+      progress.textContent = `${index + 1}/${slides.length}`;
+      dots.forEach((dot, dotIndex) => {
+        dot.style.background = dotIndex === index ? "var(--red)" : "rgba(255, 255, 255, 0.78)";
+        dot.style.borderColor = dotIndex === index ? "var(--red)" : "rgba(110, 31, 43, 0.34)";
+      });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(slides.indexOf(visible.target));
+    }, { threshold: [0.52, 0.68, 0.82] });
+
+    slides.forEach((slide) => observer.observe(slide));
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => goTo(activeIndex - 1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => goTo(activeIndex + 1));
+    document.querySelector('[data-action="fullscreen"]').addEventListener("click", async () => {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+        event.preventDefault();
+        goTo(activeIndex + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        goTo(activeIndex - 1);
+      }
+      if (event.key === "Home") goTo(0);
+      if (event.key === "End") goTo(slides.length - 1);
+    });
+
+    setActive(0);
+  </script>
+</body>
+</html>
